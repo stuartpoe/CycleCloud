@@ -1,0 +1,33 @@
+https://ftam1.altair.com/message/dmDHixuPKcNrasCpaJHA6a
+
+
+6200@BHAZW05112102P.ent.bhicorp.com
+
+/subscriptions/a5d2b45b-f9b1-4ad0-aee5-66160e64052c/resourceGroups/rg-goldenimages-infra/providers/Microsoft.Compute/galleries/bhaz_goldenimage_gallery/imagesbh-az-img-rhel8-gen2/versions/1.0.3
+
+
+bhaz_goldenimage_gallery/bh-az-img-rhel8-gen2/1.0.3
+
+cyclecloud project fetch https://github.com/wolfgang-desalvador/cyclecloud-pbspro/releases/2.0.21 altair-pbs-pro
+
+
+#!/bin/bash
+
+# Define the file path
+file_path="/etc/ssh/sshd_config"
+
+# Use sed to find and replace the variable value
+sed -i 's/PasswordAuthentication = no/PasswordAuthentication = yes/' "$file_path"
+
+# Print a message indicating the change was made
+echo "The variable PasswordAuthentication has been changed to yes in $file_path"
+
+ ssh -i /opt/cycle_server/.ssh/cyclecloud.pem cyclecloud@10.126.136.212
+
+curl -vv telnet://10.126.136.37:9443
+
+qsub -l select=3:nodearray=execute -- /usr/bin/sleep 300
+
+cyclecloud import_template -f pbspro_test.txt --force
+
+
